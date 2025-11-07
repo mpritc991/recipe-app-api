@@ -24,7 +24,18 @@ class ModelTests(TestCase):
     def test_new_user_email_normalized(self):
         """Test the email for a new user is normalized."""
         sample_emails = [
-            # anything before @ can remain uppercase, domain part should be lowercased.
-            ['testone@EXAMPLE.COM', 'testone@example.com'],
-            ['Test2@Example.com', 'Test2@example.com']
+            # anything before @ can remain uppper,
+            # domain part should be lowercased
+            ['test1@EXAMPLE.COM', 'test1@example.com'],
+            ['Test2@Example.com', 'Test2@example.com'],
+            ['TEST3@EXAMPLE.COM', 'TEST3@example.com'],
+            ['test4@example.COM', 'test4@example.com'],
         ]
+        for email, expected in sample_emails:
+            user = get_user_model().objects.create_user(email, 'sample123')
+            self.assertEqual(user.email, expected)
+
+    def test_new_user_without_email_raises_error(self):
+        """Test that creating a user without an email raises a ValueError."""
+        with self.assertRaises(ValueError):
+            get_user_model().objects.create_user('', 'test123')
