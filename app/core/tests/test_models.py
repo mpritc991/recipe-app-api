@@ -24,5 +24,7 @@ class ModelTests(TestCase):
     def test_new_user_email_normalized(self):
         """Test the email for a new user is normalized."""
         sample_emails = [
-            ['Testone@Example.COM', 'testone@example.com'],
+            # anything before @ can remain uppercase, domain part should be lowercased.
+            ['testone@EXAMPLE.COM', 'testone@example.com'],
+            ['Test2@Example.com', 'Test2@example.com']
         ]
