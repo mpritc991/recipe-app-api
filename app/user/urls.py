@@ -1,0 +1,16 @@
+"""
+Urls mapping for the user API.
+"""
+
+from django.urls import path
+
+#from user.views import CreateUserView - vsc auto-import txt.
+# this is a cleaner way to do it. Because you dont
+# need to import each view individually.
+from user import views
+
+
+app_name = 'user'
+urlpatterns = [
+    path('create/', views.CreateUserView.as_view(), name='create'),
+]
