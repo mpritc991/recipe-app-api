@@ -18,6 +18,7 @@ def create_user(**params):
     """Helper function to create a new user."""
     return get_user_model().objects.create_user(**params)
 
+
 class PublicUserApiTests(TestCase):
     """Tests for the public features of the user API."""
 
@@ -102,6 +103,6 @@ class PublicUserApiTests(TestCase):
             'password': '',
         }
         res = self.client.post(TOKEN_URL, payload)
-        
+
         self.assertNotIn('token', res.data)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
