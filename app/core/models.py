@@ -1,5 +1,6 @@
 """
-Django models for the core application."""
+Django models for the core application.
+"""
 
 from django.conf import settings
 from django.db import models
