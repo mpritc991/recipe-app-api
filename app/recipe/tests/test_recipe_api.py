@@ -404,6 +404,8 @@ class PrivateRecipeApiTests(TestCase):
         r2 = create_recipe(user=self.user, title='Bloodless Banana')
         tag1 = Tag.objects.create(user=self.user, name='Vegetarian')
         tag2 = Tag.objects.create(user=self.user, name='Vegan')
+        r1.tags.add(tag1)
+        r2.tags.add(tag2)
         r3 = create_recipe(user=self.user, title='Fish and Chips')
 
         params = {'tags': f'{tag1.id},{tag2.id}'}
@@ -422,6 +424,8 @@ class PrivateRecipeApiTests(TestCase):
         r2 = create_recipe(user=self.user, title='Its a salad, salad')
         in1 = Ingredient.objects.create(user=self.user, name='NY Strip Steak')
         in2 = Ingredient.objects.create(user=self.user, name='Lettuce')
+        r1.ingredients.add(in1)
+        r2.ingredients.add(in2)
         r3 = create_recipe(user=self.user, title='Rotel Chicken')
 
         params = {'ingredients': f'{in1.id},{in2.id}'}
