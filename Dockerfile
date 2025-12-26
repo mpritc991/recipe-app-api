@@ -5,7 +5,6 @@ ENV PYTHONUNBUFFERED 1
 
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
-# /scripts added at time of deployment
 COPY ./scripts /scripts
 COPY ./app /app
 WORKDIR /app
@@ -34,17 +33,10 @@ RUN python -m venv /py && \
     mkdir -p /vol/web/static && \
     chown -R django-user:django-user /vol && \
     chmod -R 755 /vol && \
-    # scripts was added at time of deployment
     chmod -R +x /scripts
 
-ENV PATH="/py/bin:$PATH"
+ENV PATH="/scripts:/py/bin:$PATH"
 
 USER django-user
 
-# "CMD[run.sh]"" is the default command thats run for docker
-# containers spawned from our image thats built from this dockerfile
-# We'll override it with docker compose since our dev server will use
-# our manage.py run server command instead of uWSGI. Its set as the "default"
-# because it will be used to run our service in uWSGI when we deploy our
-# application
 CMD ["run.sh"]
